@@ -7,7 +7,6 @@ public class TestFootIK : MonoBehaviour
     public Animator playerAnimator;
     public HumanDescription humanDes;
     public bool pelvisAdjust;
-    public float footIKPosOffset = 0.1f;
     public float footHeightOffset = 1;
     [Range(0, 1)]
     public float leftIKPositionWeight = 1;
@@ -96,22 +95,6 @@ public class TestFootIK : MonoBehaviour
             Vector3 zAxis = Vector3.Cross(xAxis, _raycastHitInfo.normal).normalized;
             IKInfo.rotation = Quaternion.LookRotation(zAxis, _raycastHitInfo.normal);
         }
-    }
-
-    private float getPelvisOffset()
-    {
-        float offset = 0;
-        if (_leftFootIKInfo.position.y < _rightFootIKInfo.position.y)
-        {
-            //取左脚作为pelvis调整脚
-            offset = _leftFootIKInfo.position.y - transform.position.y - footIKPosOffset;
-        }
-        else
-        {
-            //取右脚
-            offset = _rightFootIKInfo.position.y - transform.position.y - footIKPosOffset;
-        }
-        return offset;
     }
 
     //调整pelvis，通过bodyposition
